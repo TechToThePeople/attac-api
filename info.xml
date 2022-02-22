@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<extension key="attac-api" type="module">
+  <file>attac_api</file>
+  <name>Api for attac</name>
+  <description>mostly around membership for now</description>
+  <license>AGPL-3.0</license>
+  <maintainer>
+    <author>Xavier</author>
+    <email>github@tttp.eu</email>
+  </maintainer>
+  <urls>
+    <url desc="Main Extension Page">http://FIXME</url>
+    <url desc="Documentation">http://FIXME</url>
+    <url desc="Support">http://FIXME</url>
+    <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
+  </urls>
+  <releaseDate>2022-02-21</releaseDate>
+  <version>1.0</version>
+  <develStage>alpha</develStage>
+  <compatibility>
+    <ver>5.0</ver>
+  </compatibility>
+  <classloader>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+  <civix>
+    <namespace>CRM/AttacApi</namespace>
+  </civix>
+</extension>

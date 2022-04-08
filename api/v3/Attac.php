@@ -146,7 +146,6 @@ function _civicrm_api3_attac_create_membership_spec(&$spec)
  */
 function civicrm_api3_attac_create_membership($params)
 {
-    print_r($params);
     // todo read the memberships
     if ($params["amount"] < 13) {
         return civicrm_api3_create_error("minimum amount 13", [

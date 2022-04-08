@@ -99,13 +99,12 @@ function civicrm_api3_attac_create_member($params)
 {
   $params['action_name'] = "text xavier";
   $params['action_type'] = "website_adhesion";
-  $result = civicrm_api3('ContactAction','create',$params);
-  $param2 = [
+  $result = civicrm_api3('ActionContact','create',$params);
+  $params2 = [
     'contact_id' => $result['id'],
-    'amount' => $param['amount']
+    'amount' => $params['amount']
   ];
-  $result = civicrm_api3('Attac','membership_create',$params);
-  print_r($result);
+  $result = civicrm_api3('Attac','create_membership',$params2);
 }
 
 function _civicrm_api3_attac_create_membership_spec(&$spec)
@@ -189,7 +188,8 @@ function civicrm_api3_attac_create_membership($params)
     } catch (Exception $e) {
         print_r($e);
         $tx->rollback();
-        return civicrm_api3_create_error("Error creating the attac membership");
+        throw ($e);
+//        return civicrm_api3_create_error("Error creating the attac membership");
     }
     $tx->commit();
     $result = [

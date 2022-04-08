@@ -1,15 +1,89 @@
 <?php
-
-function _civicrm_api3_attac_adhere_spec(&$spec)
+function _civicrm_api3_attac_create_member_spec(&$spec)
 {
-    $spec["contact_id"] = [
-        "title" => "Contact ID",
-        "api.required" => 1,
-    ];
+  $spec['first_name'] = [
+    'name' => 'first_name',
+    'title' => ts('First name'),
+    'description' => ts('First name'),
+    'type' => CRM_Utils_Type::T_STRING,
+    'api.required' => 0,
+    'api.default' => '',
+  ];
+  $spec['last_name'] = [
+    'name' => 'last_name',
+    'title' => ts('Last name'),
+    'description' => ts('Last name'),
+    'type' => CRM_Utils_Type::T_STRING,
+    'api.required' => 0,
+    'api.default' => '',
+  ];
+  $spec['email'] = [
+    'name' => 'email',
+    'title' => ts('E-mail'),
+    'description' => ts('E-mail'),
+    'type' => CRM_Utils_Type::T_STRING,
+    'api.required' => 0,
+    'api.default' => '',
+  ];
+  $spec['postal_code'] = [
+    'name' => 'postal_code',
+    'title' => ts('Postal code'),
+    'description' => ts('Postal code'),
+    'type' => CRM_Utils_Type::T_STRING,
+    'api.required' => 0,
+    'api.default' => '',
+  ];
+  $spec['country'] = [
+    'name' => 'country',
+    'title' => ts('Country'),
+    'description' => 'Country ISO code',
+    'type' => CRM_Utils_Type::T_STRING,
+    'api.required' => 0,
+    'api.default' => '',
+  ];
+  $spec['phone'] = [
+    'name' => 'phone',
+    'title' => ts('Phone'),
+    'description' => 'Phone',
+    'type' => CRM_Utils_Type::T_STRING,
+    'api.required' => 0,
+    'api.default' => '',
+  ];
+  $spec['external_identifier'] = [
+    'name' => 'external_identifier',
+    'title' => ts('External identifier'),
+    'description' => 'Unique contactRef',
+    'type' => CRM_Utils_Type::T_STRING,
+    'api.default' => '',
+  ];
+  $spec['campaign_id'] = [
+    'name' => 'campaign_id',
+    'title' => ts('Campaign External ID'),
+    'description' => 'Unique campaign id',
+    'type' => CRM_Utils_Type::T_INT,
+    'api.default' => '',
+  ];
+  $spec['campaign_name'] = [
+    'name' => 'campaign_name',
+    'title' => ts('Campaign name'),
+    'description' => 'Unique campaign name',
+    'type' => CRM_Utils_Type::T_STRING,
+    'api.default' => '',
+  ];
     $spec["amount"] = [
         "title" => "Membership amount",
         "type" => CRM_Utils_Type::T_INT,
         "api.required" => 1,
+    ];
+
+    $spec["amount"] = [
+        "title" => "Membership amount",
+        "type" => CRM_Utils_Type::T_INT,
+        "api.required" => 1,
+    ];
+    $spec["payment_instrument"] = [
+        "title" => "Payment Method",
+        "type" => CRM_Utils_Type::T_INT,
     ];
 }
 /**
@@ -21,7 +95,56 @@ function _civicrm_api3_attac_adhere_spec(&$spec)
  * @see civicrm_api3_create_error
  * @throws API_Exception
  */
-function civicrm_api3_attac_membership($params)
+function civicrm_api3_attac_create_member($params)
+{
+  $params['action_name'] = "text xavier";
+  $params['action_type'] = "website_adhesion";
+  $result = civicrm_api3('ContactAction','create',$params);
+  $param2 = [
+    'contact_id' => $result['id'],
+    'amount' => $param['amount']
+  ];
+  $result = civicrm_api3('Attac','membership_create',$params);
+  print_r($result);
+}
+
+function _civicrm_api3_attac_create_membership_spec(&$spec)
+{
+    $spec["contact_id"] = [
+        "title" => "Contact ID",
+        "api.required" => 1,
+    ];
+    $spec["amount"] = [
+        "title" => "Membership amount",
+        "type" => CRM_Utils_Type::T_INT,
+        "api.required" => 1,
+    ];
+  $spec['payment_processor'] = [
+    'name' => 'payment_processor',
+    'title' => 'Payment Processor ID',
+    'description' => 'ID of payment processor used for this contribution',
+    // field is called payment processor - not payment processor id but can only be one id so
+    // it seems likely someone will fix it up one day to be more consistent - lets alias it from the start
+    'api.aliases' => ['payment_processor_id'],
+    'type' => CRM_Utils_Type::T_INT,
+  ];
+
+    $spec["payment_instrument"] = [
+        "title" => "Payment Method",
+        "type" => CRM_Utils_Type::T_INT,
+    ];
+ 
+}
+/**
+ * Attac adhere API
+ *
+ * @param array $params
+ * @return array API result descriptor
+ * @see civicrm_api3_create_success
+ * @see civicrm_api3_create_error
+ * @throws API_Exception
+ */
+function civicrm_api3_attac_create_membership($params)
 {
     print_r($params);
     // todo read the memberships

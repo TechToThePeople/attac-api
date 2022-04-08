@@ -1,8 +1,36 @@
 # attac-api
 
-![Screenshot](/images/screenshot.png)
+This extension provides two apis specific to attac to handle the flow spip->civicrm
+They are meant to be called as rest apis
 
-(*FIXME: In one or two paragraphs, describe what the extension does and why one would download it. *)
+### attac.member
+This api does two things:
+- create or update a contact (the member)
+- create the membership (using the api below)
+
+params:
+- first_name
+- last_name
+- email
+- address
+- postal_code
+- city
+- amount
+- payment_method (eg check, transfer, card...)?
+
+
+### attac.membership
+this takes the params:
+- contact_id
+- amount
+- financial_type_id (eg check, transfer, card...)?
+- transaction_id (spip bank reference?)
+
+the minimal amount has to be 13 euros and will be split into two: 12 euros for the subscription to the magazine, the rest for a membership
+
+TODO: 
+- clarify the rules and implement if there is already a membership
+
 
 The extension is licensed under [AGPL-3.0](LICENSE.txt).
 

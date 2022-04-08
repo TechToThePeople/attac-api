@@ -105,6 +105,7 @@ function civicrm_api3_attac_create_member($params)
     'amount' => $params['amount']
   ];
   $result = civicrm_api3('Attac','create_membership',$params2);
+  return $result;
 }
 
 function _civicrm_api3_attac_create_membership_spec(&$spec)

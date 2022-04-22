@@ -117,6 +117,14 @@ function _civicrm_api3_attac_create_member_spec(&$spec)
         "api.required" => 0,
         "api.default" => "",
     ];
+    $spec["street_address"] = [
+        "name" => "street_address",
+        "title" => ts("Street address"),
+        "description" => "10, rue de la paix",
+        "type" => CRM_Utils_Type::T_STRING,
+        "api.required" => 0,
+    ];
+
     $spec["phone"] = [
         "name" => "phone",
         "title" => ts("Phone"),

@@ -77,6 +77,14 @@ function civicrm_api3_attac_start_donation($params)
 
 function _civicrm_api3_attac_create_member_spec(&$spec)
 {
+    $spec["civility"] = [
+        "name" => "civility",
+        "title" => ts("Civility"),
+        "description" => ts("Civility"),
+        "type" => CRM_Utils_Type::T_INT,
+        "api.required" => 0,
+        "api.default" => "",
+    ];
     $spec["first_name"] = [
         "name" => "first_name",
         "title" => ts("First name"),
@@ -125,6 +133,14 @@ function _civicrm_api3_attac_create_member_spec(&$spec)
         "api.required" => 0,
     ];
 
+    $spec["city"] = [
+        "name" => "city",
+        "title" => ts("City"),
+        "description" => "City",
+        "type" => CRM_Utils_Type::T_STRING,
+        "api.required" => 0,
+        "api.default" => "",
+    ];
     $spec["phone"] = [
         "name" => "phone",
         "title" => ts("Phone"),
